@@ -2,7 +2,12 @@
 #include <lvgl.h>
 #include "mconfig.h"
 #include <XPT2046_Touchscreen.h>
-
+#include "screen.c"
+#include "fan_back_white.c"
+#include "fan_out_back_white.c"
+#include "light1.c"
+#include "light2.c"
+#include "logo.c"
 #define XPT2046_IRQ 36   // T_IRQ
 #define XPT2046_MOSI 32  // T_DIN
 #define XPT2046_MISO 39  // T_OUT
@@ -47,7 +52,15 @@ void touchscreen_read(lv_indev_t * indev, lv_indev_data_t * data) {
   }
 }
 
+// Animation callback function
+void anim_exec_cb(void * obj, int32_t value) {
+    lv_obj_set_style_img_opa((lv_obj_t *)obj, value, LV_PART_MAIN);
+}
 
+// Animation finish callback function
+void anim_end_cb(lv_anim_t * a) {
+    lv_scr_load(scr2);  // Switch to screen 2
+}
 void setup(){
  String LVGL_Arduino = String("LVGL Library Version: ") + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
  
@@ -61,6 +74,42 @@ void setup(){
   touchscreen.setRotation(1);
 
   display = lv_tft_espi_create(SCREEN_WIDTH, SCREEN_HEIGHT, buf1, sizeof(buf1));
+
+  LV_IMAGE_DECLARE(fan_back_white);
+  LV_IMAGE_DECLARE(fan_out_back_white);
+   LV_IMAGE_DECLARE(light1);
+   LV_IMAGE_DECLARE(light2);
+  LV_IMAGE_DECLARE(screen);
+   LV_IMAGE_DECLARE(logo);
+   // Initialize an LVGL input device object (Touchscreen)
+  lv_indev_t * indev = lv_indev_create();
+  lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER);
+  lv_indev_set_read_cb(indev, touchscreen_read);
+  
+  static lv_style_t scrstyle;
+  lv_style_init(&scrstyle);
+  lv_color_t color = lv_color_hex(0xFFFFFF);
+  lv_style_set_bg_color(&scrstyle, color);
+
+  // Screen 1
+  scr1 = lv_scr_act();
+  lv_obj_add_style(scr1, &scrstyle, LV_PART_MAIN);
+
+  lv_obj_t *img = lv_img_create(lv_scr_act());
+  lv_img_set_src(img, &logo);
+  lv_obj_align(img, LV_ALIGN_CENTER, 0, 0);
+
+  lv_obj_set_style_img_opa(img, LV_OPA_TRANSP, LV_PART_MAIN);
+
+  lv_anim_t a;
+  lv_anim_init(&a);
+  lv_anim_set_var(&a, img);
+  lv_anim_set_exec_cb(&a, anim_exec_cb);
+  lv_anim_set_time(&a, 2100);
+  lv_anim_set_values(&a, LV_OPA_TRANSP, LV_OPA_COVER);
+  lv_anim_set_ready_cb(&a, anim_end_cb);
+  lv_anim_start(&a);
+
 }
 void loop(){
    lv_task_handler();
