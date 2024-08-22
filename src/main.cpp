@@ -61,6 +61,20 @@ void anim_exec_cb(void * obj, int32_t value) {
 void anim_end_cb(lv_anim_t * a) {
     lv_scr_load(scr2);  // Switch to screen 2
 }
+void btn1_event_cb(lv_event_t * e) {
+  
+}
+
+void btn2_event_cb(lv_event_t * e) {
+   
+}
+void btn3_event_cb(lv_event_t * e) {
+
+}
+void btn4_event_cb(lv_event_t * e) {
+    
+}
+
 void setup(){
  String LVGL_Arduino = String("LVGL Library Version: ") + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
  
@@ -121,6 +135,54 @@ void setup(){
   lv_obj_t *screen1 = lv_img_create(scr2);
   lv_img_set_src(screen1, &screen);
   lv_obj_align(screen1, LV_ALIGN_CENTER, 0, 0);
+
+  lv_obj_t *btn = lv_btn_create(scr2);
+  lv_obj_align(btn, LV_ALIGN_CENTER, -60, -65);
+  lv_obj_set_size(btn, 120, 100);
+  lv_obj_add_event_cb(btn, btn1_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+  lv_obj_add_flag(btn, LV_OBJ_FLAG_CHECKABLE);
+  lv_obj_add_style(btn, &style_btn_released, LV_PART_MAIN);
+ 
+  // Create an image inside the button
+  lv_obj_t *img1 = lv_img_create(btn);
+  lv_img_set_src(img1, &fan_back_white);
+  lv_obj_center(img1);
+
+   lv_obj_t *btn2 = lv_btn_create(scr2);
+  lv_obj_align(btn2, LV_ALIGN_CENTER, 120, -65);
+  lv_obj_set_size(btn2, 120, 100);
+  lv_obj_add_event_cb(btn2, btn2_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+  lv_obj_add_flag(btn2, LV_OBJ_FLAG_CHECKABLE);
+  lv_obj_add_style(btn2, &style_btn_released, LV_PART_MAIN);
+  lv_obj_t *img2 = lv_img_create(btn2);
+  lv_img_set_src(img2, &fan_out_back_white);
+  lv_obj_center(img2);
+
+   lv_obj_t *btn3 = lv_btn_create(scr2);
+  lv_obj_align(btn3, LV_ALIGN_CENTER, -60, 65);
+  lv_obj_set_size(btn3, 120, 100);
+  lv_obj_add_event_cb(btn3, btn3_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+  lv_obj_add_flag(btn3, LV_OBJ_FLAG_CHECKABLE);
+  lv_obj_add_style(btn3, &style_btn_released, LV_PART_MAIN);
+  lv_obj_t *img3 = lv_img_create(btn3);
+  lv_img_set_src(img3, &light2);
+  lv_obj_center(img3);
+
+   lv_obj_t *btn4 = lv_btn_create(scr2);
+  lv_obj_align(btn4, LV_ALIGN_CENTER, 120, 65);
+  lv_obj_set_size(btn4, 120, 100);
+ lv_obj_add_event_cb(btn4, btn4_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+  lv_obj_add_flag(btn4, LV_OBJ_FLAG_CHECKABLE);
+  lv_obj_add_style(btn4, &style_btn_released, LV_PART_MAIN);
+  lv_obj_t *img4 = lv_img_create(btn4);
+  lv_img_set_src(img4, &light1);
+  lv_obj_center(img4);
+
+
+
+
+  // Apply the default style for the button (when not toggled)
+  lv_obj_add_style(btn, &style_btn_released, LV_PART_MAIN);
 }
 void loop(){
    lv_task_handler();
