@@ -15,6 +15,10 @@
 #define XPT2046_CS 33 
 #define MY_DISP_HOR_RES SCREEN_WIDTH
 #define MY_DISP_VER_RES SCREEN_HEIGHT
+#define btn_1 19
+#define btn_2 18
+#define btn_3 5
+#define btn_4 17
 
 uint32_t lastTouchTime;
 
@@ -120,6 +124,14 @@ digitalWrite(btn_4,HIGH);
 Serial.print("touch no 4 ")   ;  }
 }
 void setup(){
+   pinMode(btn_1,OUTPUT);
+   pinMode(btn_2,OUTPUT);
+    pinMode(btn_3,OUTPUT);
+     pinMode(btn_4,OUTPUT);
+  digitalWrite(btn_1,LOW);
+    digitalWrite(btn_2,LOW);  
+    digitalWrite(btn_3,LOW);
+      digitalWrite(btn_4,LOW);
  String LVGL_Arduino = String("LVGL Library Version: ") + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
  
   Serial.println(LVGL_Arduino);
