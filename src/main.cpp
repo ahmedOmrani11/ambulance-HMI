@@ -123,6 +123,15 @@ digitalWrite(btn_4,HIGH);
         // Button is not toggled (released)
 Serial.print("touch no 4 ")   ;  }
 }
+void sleep_screen() {
+  // Implement screen sleep logic, e.g., turning off the backlight
+  digitalWrite(TFT_BL, LOW); 
+}
+
+void wake_screen() {
+  // Implement screen wake logic, e.g., turning on the backlight
+  digitalWrite(TFT_BL, HIGH);  
+}
 void setup(){
    pinMode(btn_1,OUTPUT);
    pinMode(btn_2,OUTPUT);
@@ -244,4 +253,14 @@ void loop(){
    lv_task_handler();
   lv_tick_inc(5);
   delay(5);
+    // Check for sleep timeout
+  if (millis() - lastTouchTime >= SLEEP_TIMEOUT) {
+    lv_scr_load(scr1);
+  }
+
+  // Check if the screen is touched to wake it up
+  if (touchscreen.tirqTouched() && touchscreen.touched()) {
+    lv_scr_load(scr2);
+    lastTouchTime = millis();  // Reset last touch time
+  }
 }
