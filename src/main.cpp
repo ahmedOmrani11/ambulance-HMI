@@ -62,19 +62,63 @@ void anim_end_cb(lv_anim_t * a) {
     lv_scr_load(scr2);  // Switch to screen 2
 }
 void btn1_event_cb(lv_event_t * e) {
-  
+    lv_obj_t * btn = (lv_obj_t *)lv_event_get_target(e);
+    bool toggled = lv_obj_has_state(btn, LV_STATE_CHECKED);
+
+    // Apply styles based on button state
+    if (toggled) {
+        // Button is toggled (pressed)
+Serial.print("touch 1")   ;
+digitalWrite(btn_1,HIGH);
+ } else {
+  digitalWrite(btn_1,LOW);
+        // Button is not toggled (released)
+Serial.print("touch no 1 ")   ;  }
 }
 
 void btn2_event_cb(lv_event_t * e) {
-   
-}
-void btn3_event_cb(lv_event_t * e) {
+    lv_obj_t * btn = (lv_obj_t *)lv_event_get_target(e);
+    bool toggled = lv_obj_has_state(btn, LV_STATE_CHECKED);
 
+    // Apply styles based on button state
+    if (toggled) {
+        // Button is toggled (pressed)
+Serial.print("touch 2")   ;
+digitalWrite(btn_2,HIGH);
+ } else {
+  digitalWrite(btn_2,LOW);
+        // Button is not toggled (released)
+Serial.print("touch no 2 ")   ;  }
+}
+
+void btn3_event_cb(lv_event_t * e) {
+    lv_obj_t * btn = (lv_obj_t *)lv_event_get_target(e);
+    bool toggled = lv_obj_has_state(btn, LV_STATE_CHECKED);
+
+    // Apply styles based on button state
+    if (toggled) {
+        // Button is toggled (pressed)
+Serial.print("touch 3")   ;
+digitalWrite(btn_3,HIGH);
+ } else {
+  digitalWrite(btn_3,LOW);
+        // Button is not toggled (released)
+Serial.print("touch no 3 ")   ;  }
 }
 void btn4_event_cb(lv_event_t * e) {
-    
-}
+    lv_obj_t * btn = (lv_obj_t *)lv_event_get_target(e);
+    bool toggled = lv_obj_has_state(btn, LV_STATE_CHECKED);
 
+    // Apply styles based on button state
+    if (toggled) {
+        // Button is toggled (pressed)
+Serial.print("touch 4")   ;
+digitalWrite(btn_4,HIGH);
+ } else {
+  digitalWrite(btn_4,LOW);
+        // Button is not toggled (released)
+Serial.print("touch no 4 ")   ;  }
+}
 void setup(){
  String LVGL_Arduino = String("LVGL Library Version: ") + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
  
