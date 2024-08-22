@@ -109,7 +109,18 @@ void setup(){
   lv_anim_set_values(&a, LV_OPA_TRANSP, LV_OPA_COVER);
   lv_anim_set_ready_cb(&a, anim_end_cb);
   lv_anim_start(&a);
+// Screen 2
+  scr2 = lv_obj_create(NULL);
+  static lv_style_t bg_style;
+  lv_style_init(&bg_style);
+  lv_style_set_bg_color(&bg_style, lv_color_hex(0xFFFFFF));
+  lv_style_set_bg_opa(&bg_style, LV_OPA_COVER);
 
+  lv_obj_add_style(scr2, &bg_style, LV_PART_MAIN);
+
+  lv_obj_t *screen1 = lv_img_create(scr2);
+  lv_img_set_src(screen1, &screen);
+  lv_obj_align(screen1, LV_ALIGN_CENTER, 0, 0);
 }
 void loop(){
    lv_task_handler();
